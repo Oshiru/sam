@@ -1,5 +1,12 @@
 """ SAM  """
 
+# TODO split into multiple files and document APIs between files
+# TODO implement sami - the interactive element
+# TODO !implement a more general tree structure in the parser
+# This will invlove tokens specifting what children they expect and a general
+# get children function. Also note that precedence can be implemented by going
+# to the right until finding an operator of higher precedence
+
 from collections import defaultdict
 
 ###############################################################################
@@ -8,6 +15,14 @@ from collections import defaultdict
 #                                                                             #
 ###############################################################################
 
+# variables
+#
+# A dictionary of te variables contained in sam with keys the variable name
+# and values the variable type
+#
+# TODO !create variable type
+#
+# TODO implement namespaces via a tree structure
 variables = defaultdict()
 
 ###############################################################################
@@ -20,8 +35,10 @@ variables = defaultdict()
 #
 # EOF (end-of-file) token is used to indicate that
 # there is no more input left for lexical analysis
-INTEGER, PLUS, MINUS, MUL, DIV, LPAREN, RPAREN, EOF, INT_DEC, VAR, ASSIGNMENT
- = (
+# TODO make a dictionary with some of the tokens (e.g. '+', '-' etc)
+# This should avoid having many ifs in the Lexer
+# IDEA maybe this should be in its own file
+INTEGER, PLUS, MINUS, MUL, DIV, LPAREN, RPAREN, EOF, INT_DEC, VAR, ASSIGNMENT = (
     'INTEGER', 'PLUS', 'MINUS', 'MUL', 'DIV', '(', ')', 'EOF', 'INT_DEC', 'VAR',
     'ASSIGNMENT'
 )
@@ -93,6 +110,8 @@ class Lexer(object):
     def get_token_from_string(string):
         """Returns the correct token for a specific string"""
 
+        # TODO check against current variable names
+
         if string == 'int':
             return Token(INT_DEC, string)
         else:
@@ -156,6 +175,8 @@ class Lexer(object):
 #                                                                             #
 ###############################################################################
 
+# TODO !implement variable declaration and initalisation
+
 class AST(object):
     pass
 
@@ -191,6 +212,11 @@ class Parser(object):
             self.current_token = self.lexer.get_next_token()
         else:
             self.error()
+
+    # The next 3 methods essentialy implement BIDMAS - brackets, then multiply,
+    # then add.
+    #
+    # TODO Implement precedence more completely
 
     def factor(self):
         """factor : INTEGER | LPAREN expr RPAREN"""
