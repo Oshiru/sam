@@ -4,7 +4,8 @@
 #                                                                             #
 ###############################################################################
 
-from parser import *
+from parser import Parser
+from token import *
 
 class NodeVisitor(object):
     def visit(self, node):
@@ -17,8 +18,8 @@ class NodeVisitor(object):
 
 
 class Interpreter(NodeVisitor):
-    def __init__(self, parser):
-        self.parser = parser
+    def __init__(self, text):
+        self.parser = Parser(text)
 
     def visit_BinOp(self, node):
         if node.op.type == PLUS:

@@ -5,7 +5,9 @@
 ###############################################################################
 
 # TODO !implement variable declaration and initalisation
-from lexer import *
+# HACK improve imports here
+from lexer import Lexer
+from token import *
 
 class AST(object):
     pass
@@ -25,8 +27,8 @@ class Num(AST):
 
 
 class Parser(object):
-    def __init__(self, my_lexer):
-        self.my_lexer = my_lexer
+    def __init__(self, text):
+        self.my_lexer = Lexer(text)
         # set current token to the first token taken from the input
         self.current_token = self.my_lexer.get_next_token()
 
