@@ -4,7 +4,7 @@
 #                                                                             #
 ###############################################################################
 
-from token import *
+from sam_token import *
 
 class Lexer(object):
     def __init__(self, text):

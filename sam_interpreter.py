@@ -4,8 +4,8 @@
 #                                                                             #
 ###############################################################################
 
-from parser import Parser
-from token import *
+from sam_parser import Parser
+from sam_token import *
 
 class NodeVisitor(object):
     def visit(self, node):

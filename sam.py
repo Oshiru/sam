@@ -8,7 +8,7 @@
 # to the right until finding an operator of higher precedence
 
 from collections import defaultdict
-from interpreter import Interpreter
+from sam_interpreter import Interpreter
 
 ###############################################################################
 #                                                                             #

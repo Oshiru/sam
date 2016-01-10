@@ -6,8 +6,8 @@
 
 # TODO !implement variable declaration and initalisation
 # HACK improve imports here
-from lexer import Lexer
-from token import *
+from sam_lexer import Lexer
+from sam_token import *
 
 class AST(object):
     pass
