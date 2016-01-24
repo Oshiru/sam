@@ -9,6 +9,7 @@
 
 from sam_interpreter import Interpreter
 
+
 def main():
     while True:
         try:

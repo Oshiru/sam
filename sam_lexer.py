@@ -9,7 +9,9 @@
 
 from sam_token import *
 
+
 class Lexer(object):
+
     def __init__(self, text):
         # client string input, e.g. "4 + 2 * 3 - 6 / 2"
         self.text = text
@@ -56,13 +58,12 @@ class Lexer(object):
         # TODO check against current variable names
 
         if string == 'int':
-           return Token(INT_DEC, string)
+            return Token(INT_DEC, string)
         else:
             if string not in current_vars:
                 current_vars.push(string)
 
             return Token(VAR, string)
-
 
     def get_next_token(self):
         """Lexical analyzer (also known as scanner or tokenizer)

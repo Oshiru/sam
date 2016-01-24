@@ -1,34 +1,52 @@
 # Nodes
 
-current_max_node = 0
-precedence = [ASSIGNMENT, DIV, MUL, PLUS, MINUS, INTEGER, VAR, VAR_DEC, INT_DEC]
-expected_children = [2, 2, 2, 2, 2, 1, 0, 1, 0]
+from sam_token import *
+from collections import defaultdict
+
+# precedence - lowest to highest
+precedence = [PLUS, MINUS, DIV, MUL, ASSIGNMENT, INTEGER, VAR, INT_DEC]
+
+expected_children = {}
+
+expected_children[ASSIGNMENT] = 2
+expected_children[DIV] = 2
+expected_children[MUL] = 2
+expected_children[PLUS] = 2
+expected_children[MINUS] = 2
+expected_children[INTEGER] = 0
+expected_children[VAR] = 0
+expected_children[INT_DEC] = 1
+
 
 class NodeStructureException(Exception):
-	pass
+    pass
 
 class NoChildrenException(Exception):
-	pass
+    pass
 
-class Node(object):
-	def __init__(self, type):
-	    self.type = type
-	    self.id = current_max_node + 1
-	    self.expected_children = expected_children[precedence.index(self.type)]
-	    current_max_node++
-	    self.children = []
+class Node(Token):
 
-	def is_higher_precedence(self, second_node):
-		return (precedence.index(self.type) > precedence.index(second_node.type))
+    def __init__(self, Token):
+        self.type = Token.type
+        self.value = Token.value
+        self.children = []
 
-	def add_child(self, child):
-		if (self.children.length < expected_children[self.expected_children]):
-			self.children.push(child)
-		else:
-			raise NodeStructureException
+    def is_higher_precedence(self, second_node):
+        return precedence.index(self.type) > precedence.index(second_node.type)
 
-	def last_child(self):
-		if self.children.length > 0:
-			return self.children[-1]
-		else:
-			raise NoChildrenException
+    def add_child(self, child):
+        if len(self.children) < expected_children[self.type]:
+            self.children.append(child)
+        else:
+            raise NodeStructureException
+
+    def last_child(self):
+        if len(self.children) > 0:
+            return self.children[-1]
+        else:
+            raise NoChildrenException
+
+    def __str__(self):
+        return "Node({})".format(self.type)
+
+    # TODO do __str__ and __repr__

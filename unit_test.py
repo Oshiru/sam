@@ -6,6 +6,8 @@ failed_tests = {}
 passed_tests = []
 
 # Check declaration of a integer.
+
+
 def declaration_test1():
     try:
         text = "int number = 10;"
@@ -14,18 +16,19 @@ def declaration_test1():
         #assert(result == "")
         passed_tests.push("declaration_test1")
     except:
-    	failed_tests["declaration_test1"] = traceback.format_exc().split("\n")[-2]
+        failed_tests[
+            "declaration_test1"] = traceback.format_exc().split("\n")[-2]
 
 
 def main():
     declaration_test1()
     print("Failed Tests:\n")
     for test in failed_tests:
-    	print(str(test) + ": " + str(failed_tests[test]) + "\n")
+        print(str(test) + ": " + str(failed_tests[test]) + "\n")
 
     print("Passed Tests:\n")
     for test in passed_tests:
-    	print(str(test) + "\n")
+        print(str(test) + "\n")
 
 if __name__ == '__main__':
     main()

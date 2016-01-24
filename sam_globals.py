@@ -15,11 +15,15 @@ from collections import defaultdict
 
 variables = defaultdict()
 
+
 class Variable(object):
+
     def __init__(self, name):
         self.name = name
 
+
 class Int(Variable):
+
     def __init__(self, name, value):
         Variable.__init__(self, name)
         self.value = value

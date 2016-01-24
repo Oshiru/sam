@@ -7,9 +7,12 @@ INTEGER, PLUS, MINUS, MUL, DIV, LPAREN, RPAREN, EOF, INT_DEC, VAR, ASSIGNMENT = 
     'ASSIGNMENT'
 )
 
-static_tokens = { '+' : PLUS, '-' : MINUS, '*' : MUL, '/' : DIV, '(' : LPAREN, ')' : RPAREN, '=' : ASSIGNMENT }
+static_tokens = {'+': PLUS, '-': MINUS, '*': MUL,
+                 '/': DIV, '(': LPAREN, ')': RPAREN, '=': ASSIGNMENT}
+
 
 class Token(object):
+
     def __init__(self, type, value):
         self.type = type
         self.value = value
