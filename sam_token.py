@@ -4,6 +4,7 @@
 # there is no more input left for lexical analysis
 # TODO make a dictionary with some of the tokens (e.g. '+', '-' etc)
 # This should avoid having many ifs in the Lexer
+
 # IDEA maybe this should be in its own file
 INTEGER, PLUS, MINUS, MUL, DIV, LPAREN, RPAREN, EOF, INT_DEC, VAR, ASSIGNMENT = (
     'INTEGER', 'PLUS', 'MINUS', 'MUL', 'DIV', '(', ')', 'EOF', 'INT_DEC', 'VAR',

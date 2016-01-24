@@ -46,7 +46,6 @@ class Lexer(object):
             self.advance()
         return string
 
-    @staticmethod
     def get_token_from_string(string):
         """Returns the correct token for a specific string"""
 

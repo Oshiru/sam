@@ -21,19 +21,36 @@ class Interpreter(NodeVisitor):
     def __init__(self, text):
         self.parser = Parser(text)
 
-    def visit_BinOp(self, node):
-        if node.op.type == PLUS:
-            return self.visit(node.left) + self.visit(node.right)
-        elif node.op.type == MINUS:
-            return self.visit(node.left) - self.visit(node.right)
-        elif node.op.type == MUL:
-            return self.visit(node.left) * self.visit(node.right)
-        elif node.op.type == DIV:
-            return self.visit(node.left) / self.visit(node.right)
+    def type_error(self, node):
+        raise Exception("No visit_{} method".format(node.type))
 
-    def visit_Num(self, node):
-        return node.value
+    def interpret_tree(self, tree):
+        """interpret_tree: performs the calculations implied
+        by the given tree"""
+
+        def recurse(node):
+            for child in node.children:
+                recurse(child)
+            interpret_node(node)
+
+        recurse(tree.root)
+        return None
+
+
+    def interpret_node(self, node):
+        """ interpret_node: interperts a given node. Note that this function
+        assumes that all the children of the node are present"""
+        method_name = "interpret_" + node.type
+        method_to_call = getattr(self, method_name, self.type_error)
+        return method_to_call(node)
+
+    def interperet_INTEGER(self, node):
+        pass
+
+    def interperet_PLUS(self, node):
+        node.type = INTEGER
+        node.value =
 
     def interpret(self):
-        tree = self.parser.parse()
-        return self.visit(tree)
+        self.parser.parse()
+        return interpret_tree(self.parser.tree)
