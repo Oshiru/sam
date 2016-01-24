@@ -2,15 +2,12 @@
 #
 # EOF (end-of-file) token is used to indicate that
 # there is no more input left for lexical analysis
-# TODO make a dictionary with some of the tokens (e.g. '+', '-' etc)
-# This should avoid having many ifs in the Lexer
-
-# IDEA maybe this should be in its own file
 INTEGER, PLUS, MINUS, MUL, DIV, LPAREN, RPAREN, EOF, INT_DEC, VAR, ASSIGNMENT = (
-    'INTEGER', 'PLUS', 'MINUS', 'MUL', 'DIV', '(', ')', 'EOF', 'INT_DEC', 'VAR',
+    'INTEGER', 'PLUS', 'MINUS', 'MUL', 'DIV', 'LPAREN', 'RPAREN', 'EOF', 'INT_DEC', 'VAR',
     'ASSIGNMENT'
 )
 
+static_tokens = { '+' : PLUS, '-' : MINUS, '*' : MUL, '/' : DIV, '(' : LPAREN, ')' : RPAREN, '=' : ASSIGNMENT }
 
 class Token(object):
     def __init__(self, type, value):
