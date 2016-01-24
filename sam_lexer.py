@@ -4,6 +4,9 @@
 #                                                                             #
 ###############################################################################
 
+# This file takes each line of input and returns a list of tokens.
+# The key function is get_next_token.
+
 from sam_token import *
 
 class Lexer(object):
@@ -13,6 +16,7 @@ class Lexer(object):
         # self.pos is an index into self.text
         self.pos = 0
         self.current_char = self.text[self.pos]
+        self.current_vars = []
 
     def error(self):
         raise Exception('Invalid character')
@@ -46,15 +50,17 @@ class Lexer(object):
             self.advance()
         return string
 
-    @staticmethod
-    def get_token_from_string(string):
+    def get_token_from_string(self, string):
         """Returns the correct token for a specific string"""
 
         # TODO check against current variable names
 
         if string == 'int':
-            return Token(INT_DEC, string)
+           return Token(INT_DEC, string)
         else:
+            if string not in current_vars:
+                current_vars.push(string)
+
             return Token(VAR, string)
 
 
@@ -70,40 +76,17 @@ class Lexer(object):
                 self.skip_whitespace()
                 continue
 
-            if self.current_char.isdigit():
+            elif self.current_char.isdigit():
                 return Token(INTEGER, self.integer())
 
-            if self.current_char == '+':
+            elif self.current_char.isalpha():
+                return self.get_token_from_string(self.alphanumeric())
+
+            else:
+                current = self.current_char
                 self.advance()
-                return Token(PLUS, '+')
-
-            if self.current_char == '-':
-                self.advance()
-                return Token(MINUS, '-')
-
-            if self.current_char == '*':
-                self.advance()
-                return Token(MUL, '*')
-
-            if self.current_char == '/':
-                self.advance()
-                return Token(DIV, '/')
-
-            if self.current_char == '(':
-                self.advance()
-                return Token(LPAREN, '(')
-
-            if self.current_char == ')':
-                self.advance()
-                return Token(RPAREN, ')')
-
-            if self.current_char == '=':
-                self.advance()
-                return Token(ASSIGNMENT, '=')
-
-            if self.current_char.isalpha():
-                return get_token_from_string(self.alphanumeric())
-
+                return Token(static_tokens[current], current)
+         
             self.error()
 
         return Token(EOF, None)
