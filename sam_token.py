@@ -9,9 +9,6 @@ INTEGER, PLUS, MINUS, MUL, DIV, LPAREN, RPAREN, EOF, INT_DEC, VAR, ASSIGNMENT = 
 
 static_tokens = { '+' : PLUS, '-' : MINUS, '*' : MUL, '/' : DIV, '(' : LPAREN, ')' : RPAREN, '=' : ASSIGNMENT }
 
-allowed_tokens = { INTEGER: [PLUS,MINUS,MUL,DIV], PLUS: [], MINUS: [], MUL: [], DIV: [], LPAREN: [], 
-                   RPAREN: [], EOF: [], INT_DEC: [], VAR: [], ASSIGNMENT: []}
-
 class Token(object):
     def __init__(self, type, value):
         self.type = type
