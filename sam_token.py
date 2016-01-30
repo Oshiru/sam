@@ -2,13 +2,13 @@
 #
 # EOF (end-of-file) token is used to indicate that
 # there is no more input left for lexical analysis
-INTEGER, PLUS, MINUS, MUL, DIV, LPAREN, RPAREN, EOF, INT_DEC, VAR, ASSIGNMENT = (
+INTEGER, PLUS, MINUS, MUL, DIV, LPAREN, RPAREN, EOF, INT_DEC, VAR, ASSIGNMENT, EOL = (
     'INTEGER', 'PLUS', 'MINUS', 'MUL', 'DIV', 'LPAREN', 'RPAREN', 'EOF', 'INT_DEC', 'VAR',
-    'ASSIGNMENT'
+    'ASSIGNMENT', 'EOL'
 )
 
 static_tokens = {'+': PLUS, '-': MINUS, '*': MUL,
-                 '/': DIV, '(': LPAREN, ')': RPAREN, '=': ASSIGNMENT}
+                 '/': DIV, '(': LPAREN, ')': RPAREN, '=': ASSIGNMENT, ';': EOL}
 
 
 class Token(object):

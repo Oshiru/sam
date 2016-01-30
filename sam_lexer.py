@@ -24,11 +24,12 @@ class Lexer(object):
         raise Exception('Invalid character')
 
     def advance(self):
-        """Advance the `pos` pointer and set the `current_char` variable."""
+        """Advance the 'pos' pointer and set the 'current_char' variable."""
         self.pos += 1
         if self.pos > len(self.text) - 1:
             self.current_char = None  # Indicates end of input
         else:
+            self.previous_char = self.current_char
             self.current_char = self.text[self.pos]
 
     def skip_whitespace(self):
@@ -55,13 +56,13 @@ class Lexer(object):
     def get_token_from_string(self, string):
         """Returns the correct token for a specific string"""
 
-        # TODO check against current variable names
-
         if string == 'int':
             return Token(INT_DEC, string)
         else:
-            if string not in current_vars:
-                current_vars.push(string)
+            if (string not in self.current_vars) and (self.token.type == INT_DEC):
+                self.current_vars.append(string)
+            elif (self.token.type == INT_DEC) or (string not in self.current_vars):
+                self.error()
 
             return Token(VAR, string)
 
@@ -78,15 +79,18 @@ class Lexer(object):
                 continue
 
             elif self.current_char.isdigit():
-                return Token(INTEGER, self.integer())
+                self.token = Token(INTEGER, self.integer())
+                return self.token
 
             elif self.current_char.isalpha():
-                return self.get_token_from_string(self.alphanumeric())
+                self.token = self.get_token_from_string(self.alphanumeric())
+                return self.token
 
             else:
                 current = self.current_char
                 self.advance()
-                return Token(static_tokens[current], current)
+                self.token = Token(static_tokens[current], current)
+                return self.token
 
             self.error()
 

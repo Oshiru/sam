@@ -13,12 +13,10 @@ def declaration_test1():
         text = "int number = 10;"
         my_interpreter = Interpreter(text)
         result = my_interpreter.interpret()
-        #assert(result == "")
         passed_tests.push("declaration_test1")
     except:
         failed_tests[
-            "declaration_test1"] = traceback.format_exc().split("\n")[-2]
-
+            "declaration_test1"] = traceback.format_exc()#.split("\n")[-2]
 
 def main():
     declaration_test1()
